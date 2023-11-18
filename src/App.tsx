@@ -1,26 +1,30 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { ApolloProvider } from '@apollo/client'
 
-function App() {
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
+
+import client from './client'
+import { Drawer } from './components/Drawer'
+import { FavoritesProvider } from './context/FavoritesContext'
+import Favorites from './pages/Favorites'
+import Home from './pages/Home'
+import Notes from './pages/Notes'
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <ApolloProvider client={client}>
+      <FavoritesProvider>
+        <Router>
+          <Drawer>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/favorites" element={<Favorites />} />
+              <Route path="/notes" element={<Notes />} />
+            </Routes>
+          </Drawer>
+        </Router>
+      </FavoritesProvider>
+    </ApolloProvider>
+  )
 }
 
-export default App;
+export default App
