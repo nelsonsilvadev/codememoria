@@ -29,23 +29,20 @@ import {
   useTheme,
 } from '@mui/material'
 
-import React, { useEffect, useState } from 'react'
+import { FC, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { useFavorites } from '../context/FavoritesContext'
 import { IChildren } from '../types'
 
-export const Drawer: React.FC<IChildren> = ({ children }) => {
+const Drawer: FC<IChildren> = ({ children }) => {
   const theme = useTheme()
   const navigate = useNavigate()
   const { favorites, clearFavorites } = useFavorites()
   const drawerWidth = 240
-
   const [mobileOpen, setMobileOpen] = useState(false)
   const [dialogOpen, setDialogOpen] = useState(false)
-  const [container, setContainer] = useState<HTMLElement | undefined>(undefined)
-
-  const fullScreen = useMediaQuery(theme.breakpoints.down('md'))
+  const isFullScreen = useMediaQuery(theme.breakpoints.down('md'))
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen)
@@ -68,10 +65,6 @@ export const Drawer: React.FC<IChildren> = ({ children }) => {
     clearFavorites()
     setDialogOpen(false)
   }
-
-  useEffect(() => {
-    setContainer(window.document.body)
-  }, [])
 
   const drawer = (
     <Box>
@@ -170,7 +163,9 @@ export const Drawer: React.FC<IChildren> = ({ children }) => {
         aria-label="mailbox folders"
       >
         <MUIDrawer
-          container={container}
+          // Note: Client-side only. No working with SSR in here, however, I do love Next.js.
+          // No need to use the "useEffect" hook to be sure window is defined.
+          container={window.document.body}
           variant="temporary"
           open={mobileOpen}
           onClose={handleDrawerToggle}
@@ -213,8 +208,11 @@ export const Drawer: React.FC<IChildren> = ({ children }) => {
         {children}
       </Box>
 
+      {/* Note: Regarding the Dialog component and knowing that it's being used in other components, I would have created a separate component for it.
+      Sending the title, content, and actions as props. This would have made the Drawer component more readable and easier to maintain.
+      Like a did with the TokenInput component. */}
       <Dialog
-        fullScreen={fullScreen}
+        fullScreen={isFullScreen}
         open={dialogOpen}
         onClose={handleDialogClose}
         aria-labelledby="responsive-dialog-title"
