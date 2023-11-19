@@ -22,6 +22,8 @@ const TokenInput = ({
         autoFocus
         fullWidth
         // Note: I was using !!newToken.length, however, newToken.length > 0 should be better for readability.
+        // Either checking newToken instead of newToken.length > 0 or using !!newToken.length is fine.
+        // I just prefer newToken.length > 0, it's more explicit.
         error={newToken.length > 0 && !isValidToken}
         helperText={
           newToken.length > 0 && !isValidToken && 'Invalid token format.'

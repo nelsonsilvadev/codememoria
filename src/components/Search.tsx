@@ -41,6 +41,7 @@ const Search = () => {
   const [showErrorDialog, setShowErrorDialog] = useState(false)
   const [newToken, setNewToken] = useState('')
   const [isValidToken, setIsValidToken] = useState(true)
+  const [validationStarted, setValidationStarted] = useState(false)
   const lastRepositoryElementRef = useRef<HTMLDivElement | null>(null)
 
   // Note: Debounce is being used here to avoid unnecessary API calls.
@@ -109,6 +110,7 @@ const Search = () => {
   const validateTokenFormat = useCallback(
     debounce((token: string) => {
       setIsValidToken(tokenValidation.test(token))
+      setValidationStarted(false)
     }, 500),
     []
   )
@@ -116,8 +118,11 @@ const Search = () => {
   const handleDialogTokenChange = (e: ChangeEvent<HTMLInputElement>) => {
     const token = e.target.value.trim()
 
-    if (token.length > 0) setIsValidToken(true)
-    else validateTokenFormat(token)
+    if (token && !isValidToken) setIsValidToken(true)
+    if (token) {
+      setValidationStarted(true)
+      validateTokenFormat(token)
+    }
 
     setNewToken(token)
   }
@@ -162,40 +167,6 @@ const Search = () => {
     </List>
   )
 
-  const ErrorDialog = () => (
-    <Dialog open={showErrorDialog} onClose={() => setShowErrorDialog(false)}>
-      <DialogTitle>Authentication Error</DialogTitle>
-
-      <DialogContent>
-        <DialogContentText>
-          The provided GitHub token is incorrect or expired. Please enter a new
-          token.
-        </DialogContentText>
-
-        <TokenInput
-          newToken={newToken}
-          isValidToken={isValidToken}
-          onTokenChange={handleDialogTokenChange}
-          onTokenSubmit={handleRetryWithNewToken}
-        />
-      </DialogContent>
-
-      <DialogActions>
-        <Button onClick={() => setShowErrorDialog(false)} color="primary">
-          Cancel
-        </Button>
-
-        <Button
-          onClick={handleRetryWithNewToken}
-          color="primary"
-          disabled={!isValidToken}
-        >
-          Retry
-        </Button>
-      </DialogActions>
-    </Dialog>
-  )
-
   return (
     <Box sx={{ position: 'relative' }}>
       <TextField
@@ -227,7 +198,38 @@ const Search = () => {
       )}
 
       <RepositoryList />
-      <ErrorDialog />
+
+      <Dialog open={showErrorDialog} onClose={() => setShowErrorDialog(false)}>
+        <DialogTitle>Authentication Error</DialogTitle>
+
+        <DialogContent>
+          <DialogContentText>
+            The provided GitHub token is incorrect or expired. Please enter a
+            new token.
+          </DialogContentText>
+
+          <TokenInput
+            newToken={newToken}
+            isValidToken={isValidToken}
+            onTokenChange={handleDialogTokenChange}
+            onTokenSubmit={handleRetryWithNewToken}
+          />
+        </DialogContent>
+
+        <DialogActions>
+          <Button onClick={() => setShowErrorDialog(false)} color="primary">
+            Cancel
+          </Button>
+
+          <Button
+            onClick={handleRetryWithNewToken}
+            color="primary"
+            disabled={!newToken.length || !isValidToken || validationStarted}
+          >
+            Retry
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Box>
   )
 }

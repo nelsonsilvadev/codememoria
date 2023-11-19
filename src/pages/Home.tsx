@@ -57,8 +57,8 @@ const Home = () => {
   const handleTokenChange = (e: ChangeEvent<HTMLInputElement>) => {
     const token = e.target.value.trim()
 
-    if (token.length > 0) setIsValidToken(true)
-    else validateTokenFormat(token)
+    if (token && !isValidToken) setIsValidToken(true)
+    if (token) validateTokenFormat(token)
 
     setNewToken(token)
   }
