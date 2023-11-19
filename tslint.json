@@ -4,5 +4,14 @@
     "tslint-react",
     "tslint-config-prettier"
   ],
-  "rules": {}
+  "rules": {
+    "no-namespace": false,
+    "jsx-no-lambda": false,
+    "jsx-boolean-value": false,
+    "no-shadowed-variable": false,
+    "array-type": [
+      true,
+      "array-simple"
+    ]
+  }
 }
