@@ -15,7 +15,7 @@ import {
   Typography,
 } from '@mui/material'
 
-import React, { useCallback, useEffect, useState } from 'react'
+import { ChangeEvent, FormEvent, useCallback, useEffect, useState } from 'react'
 
 import Search from '../components/Search'
 import TokenInput from '../components/TokenInput'
@@ -54,22 +54,23 @@ const Home = () => {
     []
   )
 
-  const handleTokenChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleTokenChange = (e: ChangeEvent<HTMLInputElement>) => {
     const token = e.target.value.trim()
 
-    if (!token.length) setIsValidToken(true)
+    if (token.length > 0) setIsValidToken(true)
     else validateTokenFormat(token)
 
     setNewToken(token)
   }
 
-  const handleTokenSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleTokenSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
     if (isValidToken) {
       localStorage.setItem('token', newToken)
       setToken(newToken)
       setNewToken('')
+      setIsValidToken(false)
     }
   }
 
