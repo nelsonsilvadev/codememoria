@@ -32,7 +32,7 @@ const Favorites = () => {
       <Logo
         style={{
           height: 80,
-          marginBottom: 12,
+          marginBottom: 18,
         }}
       />
 

@@ -97,7 +97,7 @@ const Home = () => {
       <Logo
         style={{
           height: 80,
-          marginBottom: 12,
+          marginBottom: 18,
         }}
       />
 
@@ -115,7 +115,7 @@ const Home = () => {
 
       <Grid
         container
-        spacing={1}
+        spacing={1.5}
         alignItems="center"
         justifyContent="center"
         marginTop={1}
@@ -150,12 +150,12 @@ const Home = () => {
     <Paper elevation={2} sx={{ p: 2, mt: 3, mb: 2 }}>
       <Typography variant="body1" paragraph>
         Use the search bar below to find repositories on GitHub. Start typing to
-        see results, and scroll down for more.
+        see results and scroll down for more.
       </Typography>
 
       <Typography variant="body1" paragraph>
         You can also explore details about each repository, such as the
-        programming languages used, last updated date, and more.
+        programming languages used, last updated date and etc.
       </Typography>
 
       <Typography variant="caption" sx={{ mt: 2 }} color="primary">

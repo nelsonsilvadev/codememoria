@@ -218,7 +218,7 @@ const Drawer: FC<IChildren> = ({ children }) => {
       </Box>
 
       {/* Note: Regarding the Dialog component and knowing that it's being used in other components, I would have created a separate component for it.
-      Sending the title, content, and actions as props. This would have made the Drawer component more readable and easier to maintain.
+      Sending the title, content and actions as props. This would have made the Drawer component more readable and easier to maintain.
       Like a did with the TokenInput component. */}
       <Dialog
         fullScreen={isFullScreen}
