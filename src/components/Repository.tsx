@@ -18,6 +18,8 @@ import { IRepository } from '../types'
 
 import { formatDistanceToNow } from 'date-fns'
 
+// Note: Using FC instead of React.FC (for example) just because it's shorter.
+// Regarding using or not semi-colons, I can go either way.
 const Repository: FC<IRepository> = ({
   id,
   name,
@@ -113,6 +115,7 @@ const Repository: FC<IRepository> = ({
         <Grid item xs={12} md={9}>
           <Details />
         </Grid>
+
         <Grid
           item
           xs={12}

@@ -9,7 +9,6 @@ import {
   Badge,
   Box,
   Button,
-  CssBaseline,
   Dialog,
   DialogActions,
   DialogContent,
@@ -31,6 +30,8 @@ import {
 
 import { FC, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+
+import Logo from './Logo'
 
 import { useFavorites } from '../context/FavoritesContext'
 import { IChildren } from '../types'
@@ -125,26 +126,34 @@ const Drawer: FC<IChildren> = ({ children }) => {
 
   return (
     <Box sx={{ display: 'flex' }}>
-      <CssBaseline />
-
       <AppBar
         position="fixed"
         sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
       >
-        <Toolbar>
+        <Toolbar style={{ paddingLeft: 18, paddingRight: 18 }}>
           <IconButton
             color="inherit"
             aria-label="open drawer"
             edge="start"
             onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { sm: 'none' } }}
+            sx={{ mr: 1, display: { sm: 'none' } }}
           >
             <MenuIcon />
           </IconButton>
 
-          <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1 }}>
-            Code Memoria
-          </Typography>
+          <Box
+            sx={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}
+            onClick={() => navigate('/')}
+          >
+            <Logo style={{ height: 30, marginRight: 10 }} />
+
+            <Typography variant="h6" noWrap component="div">
+              Code Memoria
+            </Typography>
+          </Box>
+
+          {/* Spacer to push the Star icon to the right */}
+          <Box sx={{ flexGrow: 1 }} />
 
           <Badge
             badgeContent={favorites.length}

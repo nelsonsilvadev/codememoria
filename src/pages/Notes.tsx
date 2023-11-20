@@ -1,4 +1,3 @@
-import GitHubIcon from '@mui/icons-material/GitHub'
 import {
   Box,
   Container,
@@ -9,6 +8,8 @@ import {
   useMediaQuery,
   useTheme,
 } from '@mui/material'
+
+import Logo from '../components/Logo'
 
 interface IItem {
   title: string
@@ -129,7 +130,12 @@ const Notes = () => {
 
   const Header = () => (
     <Box sx={{ py: 4, textAlign: 'center' }}>
-      <GitHubIcon sx={{ fontSize: isMobile ? 50 : 80, mb: 2 }} />
+      <Logo
+        style={{
+          height: 80,
+          marginBottom: 12,
+        }}
+      />
 
       <Typography
         variant="h3"

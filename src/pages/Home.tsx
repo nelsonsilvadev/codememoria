@@ -1,4 +1,3 @@
-import GitHubIcon from '@mui/icons-material/GitHub'
 import {
   Box,
   Button,
@@ -17,6 +16,7 @@ import {
 
 import { ChangeEvent, FormEvent, useCallback, useEffect, useState } from 'react'
 
+import Logo from '../components/Logo'
 import Search from '../components/Search'
 import TokenInput from '../components/TokenInput'
 import { tokenValidation } from '../utils'
@@ -91,9 +91,15 @@ const Home = () => {
   // Note: Avoiding flickering problem when loading the page regarding the token validation
   if (isLoading) return <Loading />
 
+  // Note: This Header component could be easily an external component since it's being used in other pages (with different content, props and etc.)
   const Header = () => (
     <Box sx={{ py: 4, textAlign: 'center' }}>
-      <GitHubIcon sx={{ fontSize: { xs: 50, sm: 80 }, mb: 2 }} />
+      <Logo
+        style={{
+          height: 80,
+          marginBottom: 12,
+        }}
+      />
 
       <Typography
         variant="h3"
