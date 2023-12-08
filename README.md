@@ -38,7 +38,7 @@ A dynamic and user-friendly web application for searching, favoriting and rating
 - **Managing Local Storage for Token Updates**: Addressed challenges in updating the Apollo client when the token in local storage changed, ensuring consistent and accurate data fetching.
 - ...
 
-> See all features, issues and resolutions on the **Notes** page - [https://codememoria.com/notes](https://codememoria.com/notes).
+> See all features, issues and resolutions on the **Notes** page - [http://localhost:3000/notes](http://localhost:3000/notes).
 
 ### Random Thoughts
 
